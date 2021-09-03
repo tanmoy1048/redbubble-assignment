@@ -25,13 +25,10 @@
             android:src="@mipmap/ic_launcher_round"
             app:glide="@{glide}"
             app:imageUrl="@{item.thumbnailUrl}"
-            app:layout_constraintBottom_toTopOf="@id/subTitle"
             app:layout_constraintDimensionRatio="W,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/title"
@@ -40,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="@{item.title}"
-            app:layout_constraintBottom_toTopOf="@id/subTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image" />
@@ -52,7 +48,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="@{item.type.equals(`PRODUCT`) ? item.price.currency + ` ` + item.price.amount : item.artist}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
