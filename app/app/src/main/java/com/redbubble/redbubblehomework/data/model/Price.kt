@@ -1,6 +1,6 @@
 package com.redbubble.redbubblehomework.data.model
 
 data class Price(
-    val amount: Int,
+    val amount: Float,
     val currency: String
 )
