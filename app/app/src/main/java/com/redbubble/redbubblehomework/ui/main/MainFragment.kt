@@ -5,20 +5,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.redbubble.redbubblehomework.R
 import com.redbubble.redbubblehomework.data.model.Result
+import com.redbubble.redbubblehomework.databinding.MainFragmentBinding
 import com.redbubble.redbubblehomework.ui.main.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
     private val viewModel: HomeFragmentViewModel by viewModels()
+
+    @Inject
+    lateinit var homeAdapter: HomeAdapter
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+    ): View {
+        return MainFragmentBinding.inflate(
+            inflater,
+            container,
+            false
+        ).apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewmodel = viewModel
+            adapter = homeAdapter
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,9 +47,10 @@ class MainFragment : BaseFragment() {
                     showSnackBar(result.message)
                 }
                 is Result.Loading -> {
+                    //No Operation
                 }
                 is Result.Success -> {
-                    result.data?.home?.let { }
+                    result.data?.home?.let { homeAdapter.updateData(it) }
                 }
             }
         })

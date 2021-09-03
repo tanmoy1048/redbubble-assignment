@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.redbubble.redbubblehomework.data.model.HomeItem
+import com.redbubble.redbubblehomework.databinding.ItemProductBinding
+import javax.inject.Inject
 
-/*
-class HomeAdapter(private val list: List<HomeItem>, val glide: RequestManager) :
-    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
-
-    inner class ViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
+class HomeAdapter @Inject constructor(val glide: RequestManager) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+    private val list = mutableListOf<HomeItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -22,21 +21,26 @@ class HomeAdapter(private val list: List<HomeItem>, val glide: RequestManager) :
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        list[position].let {
-//            holder.binding.title1.text = it.title
-//            holder.binding.title2.text = if (it.type == "PRODUCT") {
-//                "${it.currency} ${it.amount}"
-//            } else {
-//                "by ${it.artist}"
-//            }
-//            glide.load(it.thumbnailUrl)
-//                .centerCrop()
-//                .into(holder.binding.image)
-        }
+    fun updateData(items: List<HomeItem>) {
+        this.list.clear()
+        this.list.addAll(items)
+        notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int {
-        return list.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(list[position])
     }
-}*/
+
+    override fun getItemCount() = list.size
+
+    inner class ViewHolder(private val binding: ItemProductBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: HomeItem) {
+            with(item) {
+                binding.item = this
+                binding.glide = glide
+                binding.executePendingBindings()
+            }
+        }
+    }
+}
