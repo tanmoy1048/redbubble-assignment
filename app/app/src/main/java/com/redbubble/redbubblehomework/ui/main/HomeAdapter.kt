@@ -11,9 +11,9 @@ import javax.inject.Inject
 class HomeAdapter @Inject constructor(val glide: RequestManager) :
     RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private val list = mutableListOf<HomeItem>()
-    private var onItemClickListener: ((String) -> Unit)? = null
+    private var onItemClickListener: ((HomeItem) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (String) -> Unit) {
+    fun setOnItemClickListener(listener: (HomeItem) -> Unit) {
         onItemClickListener = listener
     }
 
@@ -37,7 +37,7 @@ class HomeAdapter @Inject constructor(val glide: RequestManager) :
         holder.bind(list[position])
         holder.itemView.setOnClickListener {
             onItemClickListener?.let { click ->
-                click(list[position].id)
+                click(list[position])
             }
         }
     }
