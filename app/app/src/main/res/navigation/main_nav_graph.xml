@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.redbubble.redbubblehomework.ui.detail.DetailFragment"
-        android:label="DetailFragment">
+        android:label="">
         <argument
             android:name="id"
             app:argType="string" />
