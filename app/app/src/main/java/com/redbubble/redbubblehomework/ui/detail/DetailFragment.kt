@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
-import com.redbubble.redbubblehomework.data.model.Result
 import com.redbubble.redbubblehomework.databinding.DetailFragmentBinding
-import com.redbubble.redbubblehomework.databinding.MainFragmentBinding
 import com.redbubble.redbubblehomework.ui.main.HomeAdapter
 import com.redbubble.redbubblehomework.ui.main.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint

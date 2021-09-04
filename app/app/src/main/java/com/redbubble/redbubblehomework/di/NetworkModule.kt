@@ -20,8 +20,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient):Retrofit {
-        val loggingInterceptor  = HttpLoggingInterceptor()
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
+        val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return Retrofit.Builder()
             .client(client)
@@ -33,7 +33,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
-        val loggingInterceptor  = HttpLoggingInterceptor()
+        val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)

@@ -8,7 +8,8 @@ import com.redbubble.redbubblehomework.data.model.HomeItem
 import com.redbubble.redbubblehomework.databinding.ItemProductBinding
 import javax.inject.Inject
 
-class HomeAdapter @Inject constructor(val glide: RequestManager) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter @Inject constructor(val glide: RequestManager) :
+    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private val list = mutableListOf<HomeItem>()
     private var onItemClickListener: ((String) -> Unit)? = null
 
