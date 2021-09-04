@@ -16,10 +16,10 @@ class FakeRepository : MainDataSource {
         "awesome art",
         "WORK"
     )
-    val homeResponse = HomeResponse(
-        listOf(item)
-    )
-
+    val homeResponse = HomeResponse(listOf(item))
+    val detailResponse = ItemDetailResponse(WorkDetails(
+        Artist("url", "description", "user_id", "username"),
+    listOf(item), "some_id", "product_url", true, "product_url", "this is title"))
 
     override suspend fun getHomeItems(): Flow<Result<HomeResponse>> {
         return flow {
@@ -28,8 +28,8 @@ class FakeRepository : MainDataSource {
     }
 
     override suspend fun getItemDetail(id: String): Flow<Result<ItemDetailResponse>> {
-//        return flow {
-//            emit(Result.Success())
-//        }.flowOn(Dispatchers.Main)
+        return flow {
+            emit(Result.Success(detailResponse))
+        }.flowOn(Dispatchers.Main)
     }
 }

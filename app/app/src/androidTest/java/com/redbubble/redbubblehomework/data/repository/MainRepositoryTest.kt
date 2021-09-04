@@ -92,4 +92,25 @@ class MainRepositoryTest {
             assertThat(data?.size).isEqualTo(2)
         }
     }
+
+
+    @Test
+    fun happyDetailRequestTest() {
+        runBlocking {
+            mockWebServer.apply {
+                enqueue(
+                    MockResponse().setBody(
+                        MockResponseFileReader("happy_detail_response.json").content
+                    )
+                )
+            }
+
+            val jobResponse = mainRepository.getItemDetail("anything").toList()
+            assertThat(jobResponse.first()).isInstanceOf(Result.Loading::class.java)
+            val response = jobResponse.drop(1).first()
+            assertThat(jobResponse.drop(1).first()).isInstanceOf(Result.Success::class.java)
+            val data = (response as Result.Success).data?.workDetails
+            assertThat(data?.artist?.username).isEqualTo("natalietyler")
+        }
+    }
 }
