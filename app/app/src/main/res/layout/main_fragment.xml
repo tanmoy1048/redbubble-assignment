@@ -35,7 +35,7 @@
                 app:gridSpace="@{@dimen/default_spacing}"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2" />
+                app:spanCount="@integer/grid_span_count" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

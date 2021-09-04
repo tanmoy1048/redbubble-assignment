@@ -41,8 +41,10 @@
 
                     <ImageView
                         android:id="@+id/userProfileImageView"
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
+                        android:layout_width="@dimen/profile_avatar_size"
+                        android:layout_height="@dimen/profile_avatar_size"
+                        android:layout_marginStart="@dimen/more_padding"
+                        android:layout_marginTop="@dimen/more_padding"
                         app:circleImageUrl="@{viewmodel.workDetail.artist.avatarUrl}"
                         app:glide="@{glide}"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -50,11 +52,13 @@
 
                     <TextView
                         android:id="@+id/title"
-                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        style="@style/TextTitle"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/more_padding"
+                        android:layout_marginRight="@dimen/more_padding"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:layout_height="wrap_content"
                         android:text="@{viewmodel.workDetail.title}"
                         app:layout_constraintBottom_toTopOf="@+id/subTitle"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -65,12 +69,14 @@
 
                     <TextView
                         android:id="@+id/subTitle"
-                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        style="@style/TextSubTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@{String.format(@string/by_artist, viewmodel.workDetail.artist.username)}"
+                        android:layout_marginLeft="@dimen/more_padding"
+                        android:layout_marginRight="@dimen/more_padding"
                         android:ellipsize="end"
                         android:maxLines="1"
+                        android:text="@{String.format(@string/by_artist, viewmodel.workDetail.artist.username)}"
                         app:layout_constraintBottom_toBottomOf="@+id/userProfileImageView"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintLeft_toRightOf="@+id/userProfileImageView"
@@ -81,6 +87,7 @@
                         android:id="@+id/bannerImageView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/more_padding"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
                         app:glide="@{glide}"
@@ -90,9 +97,11 @@
 
                     <TextView
                         android:id="@+id/availableOn"
-                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        style="@style/TextTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/more_padding"
+                        android:layout_marginTop="@dimen/more_padding"
                         android:text="@string/available_on"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -102,11 +111,13 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/more_padding"
                         android:adapter="@{adapter}"
                         android:orientation="vertical"
+                        app:gridSpace="@{@dimen/default_spacing}"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:layout_constraintTop_toBottomOf="@+id/availableOn"
-                        app:spanCount="2" />
+                        app:spanCount="@integer/grid_span_count" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.core.widget.NestedScrollView>
