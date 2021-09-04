@@ -10,6 +10,11 @@ import javax.inject.Inject
 
 class HomeAdapter @Inject constructor(val glide: RequestManager) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private val list = mutableListOf<HomeItem>()
+    private var onItemClickListener: ((String) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (String) -> Unit) {
+        onItemClickListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -29,6 +34,11 @@ class HomeAdapter @Inject constructor(val glide: RequestManager) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(list[position])
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let { click ->
+                click(list[position].id)
+            }
+        }
     }
 
     override fun getItemCount() = list.size

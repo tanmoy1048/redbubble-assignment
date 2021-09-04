@@ -4,9 +4,22 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.RequestManager
 
-@BindingAdapter("glide", "imageUrl")
-fun setImageUrl(imageView: ImageView, glide: RequestManager, url: String) {
+@BindingAdapter("glide", "thumbImageUrl")
+fun setThumbNailImageUrl(imageView: ImageView, glide: RequestManager, url: String?) {
     glide.load(url)
         .centerCrop()
         .into(imageView)
+}
+
+@BindingAdapter("glide", "imageUrl")
+fun setFullImageUrl(imageView: ImageView, glide: RequestManager, url: String?) {
+    glide.load(url)
+        .into(imageView)
+}
+
+@BindingAdapter("glide", "circleImageUrl")
+fun setCircleImageUrl(imageView: ImageView, glide: RequestManager, url: String?) {
+    glide.load(url)
+        .circleCrop()
+        .into(imageView);
 }

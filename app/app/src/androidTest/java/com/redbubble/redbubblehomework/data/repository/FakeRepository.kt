@@ -1,9 +1,6 @@
 package com.redbubble.redbubblehomework.data.repository
 
-import com.redbubble.redbubblehomework.data.model.HomeItem
-import com.redbubble.redbubblehomework.data.model.HomeResponse
-import com.redbubble.redbubblehomework.data.model.Price
-import com.redbubble.redbubblehomework.data.model.Result
+import com.redbubble.redbubblehomework.data.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,9 +20,16 @@ class FakeRepository : MainDataSource {
         listOf(item)
     )
 
+
     override suspend fun getHomeItems(): Flow<Result<HomeResponse>> {
         return flow {
             emit(Result.Success(homeResponse))
         }.flowOn(Dispatchers.Main)
+    }
+
+    override suspend fun getItemDetail(id: String): Flow<Result<ItemDetailResponse>> {
+//        return flow {
+//            emit(Result.Success())
+//        }.flowOn(Dispatchers.Main)
     }
 }

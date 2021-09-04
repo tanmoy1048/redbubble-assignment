@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.redbubble.redbubblehomework.ui.detail.DetailFragmentViewModel" />
+
+        <variable
+            name="glide"
+            type="com.bumptech.glide.RequestManager" />
+
+        <variable
+            name="adapter"
+            type="com.redbubble.redbubblehomework.ui.main.HomeAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/default_padding"
+            android:paddingTop="@dimen/default_padding"
+            android:paddingEnd="@dimen/default_padding"
+            app:onRefreshListener="@{() -> viewmodel.fetchItemDetail()}"
+            app:refreshing="@{viewmodel.isLoading}">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/userProfileImageView"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        app:circleImageUrl="@{viewmodel.workDetail.artist.avatarUrl}"
+                        app:glide="@{glide}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.workDetail.title}"
+                        app:layout_constraintBottom_toTopOf="@+id/subTitle"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintLeft_toRightOf="@+id/userProfileImageView"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/userProfileImageView"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/subTitle"
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.format(@string/by_artist, viewmodel.workDetail.artist.username)}"
+                        app:layout_constraintBottom_toBottomOf="@+id/userProfileImageView"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintLeft_toRightOf="@+id/userProfileImageView"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+                    <ImageView
+                        android:id="@+id/bannerImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        app:glide="@{glide}"
+                        app:imageUrl="@{viewmodel.workDetail.imageUrl}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userProfileImageView" />
+
+                    <TextView
+                        android:id="@+id/availableOn"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/available_on"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bannerImageView" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adapter="@{adapter}"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@+id/availableOn"
+                        app:spanCount="2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

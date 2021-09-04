@@ -1,6 +1,7 @@
 package com.redbubble.redbubblehomework.data.repository
 
 import com.redbubble.redbubblehomework.data.model.HomeResponse
+import com.redbubble.redbubblehomework.data.model.ItemDetailResponse
 import com.redbubble.redbubblehomework.data.model.Result
 import com.redbubble.redbubblehomework.data.remote.NetworkServiceApi
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,15 @@ class MainRepository @Inject constructor(val networkServiceApi: NetworkServiceAp
             emit(Result.Loading())
             val result = getResponse(
                 request = { networkServiceApi.getHomeItems() })
+            emit(result)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun getItemDetail(id: String): Flow<Result<ItemDetailResponse>> {
+        return flow {
+            emit(Result.Loading())
+            val result = getResponse(
+                request = { networkServiceApi.getItemDetail(id) })
             emit(result)
         }.flowOn(Dispatchers.IO)
     }

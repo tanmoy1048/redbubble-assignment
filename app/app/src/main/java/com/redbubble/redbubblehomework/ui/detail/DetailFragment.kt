@@ -1,29 +1,38 @@
-package com.redbubble.redbubblehomework.ui.main
+package com.redbubble.redbubblehomework.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.RequestManager
+import com.redbubble.redbubblehomework.data.model.Result
+import com.redbubble.redbubblehomework.databinding.DetailFragmentBinding
 import com.redbubble.redbubblehomework.databinding.MainFragmentBinding
+import com.redbubble.redbubblehomework.ui.main.HomeAdapter
 import com.redbubble.redbubblehomework.ui.main.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment() {
-    lateinit var viewModel: HomeFragmentViewModel
+class DetailFragment : BaseFragment() {
+    lateinit var viewModel: DetailFragmentViewModel
+    val safeArgs: DetailFragmentArgs by navArgs()
 
     @Inject
     lateinit var homeAdapter: HomeAdapter
+
+    @Inject
+    lateinit var requestManager: RequestManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
-        return MainFragmentBinding.inflate(
+        viewModel = ViewModelProvider(this).get(DetailFragmentViewModel::class.java)
+        return DetailFragmentBinding.inflate(
             inflater,
             container,
             false
@@ -31,23 +40,20 @@ class MainFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             viewmodel = viewModel
             adapter = homeAdapter
+            glide = requestManager
         }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeAdapter.setOnItemClickListener {
-            view.findNavController()
-                .navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(it))
-        }
         subscribeUi()
-        viewModel.fetchHomeItems()
+        viewModel.setId(safeArgs.id)
     }
 
     private fun subscribeUi() {
-        viewModel.homeItems.observe(viewLifecycleOwner, { items ->
-            items?.let { homeAdapter.updateData(it) }
+        viewModel.workDetail.observe(viewLifecycleOwner, { items ->
+            items?.let { homeAdapter.updateData(it.availableProducts) }
         })
 
         viewModel.error.observe(viewLifecycleOwner, { error ->
