@@ -17,7 +17,7 @@ class FakeRepository : MainDataSource {
         true,
         "",
         "awesome art",
-        "PRODUCT"
+        "WORK"
     )
     val homeResponse = HomeResponse(
         listOf(item)

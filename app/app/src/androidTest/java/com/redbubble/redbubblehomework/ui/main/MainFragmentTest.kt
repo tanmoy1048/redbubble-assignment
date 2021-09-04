@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertThat
-import com.redbubble.redbubblehomework.data.model.HomeResponse
 import com.redbubble.redbubblehomework.data.repository.FakeRepository
 import com.redbubble.redbubblehomework.launchFragmentInHiltContainer
 import com.redbubble.redbubblehomework.utils.getOrAwaitValue
@@ -27,16 +26,19 @@ class MainFragmentTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    lateinit var fakeRepository: FakeRepository
+    lateinit var viewModel: HomeFragmentViewModel
+
     @Before
     fun init() {
         hiltRule.inject()
+        fakeRepository = FakeRepository()
+        viewModel = HomeFragmentViewModel(fakeRepository)
     }
 
     @Test
     fun test_homeItems_get_data() {
-        val fakeRepository = FakeRepository()
-        val viewModel = HomeFragmentViewModel(fakeRepository)
-        val scenerio = launchFragmentInHiltContainer<MainFragment> {
+        launchFragmentInHiltContainer<MainFragment> {
             (this as MainFragment).viewModel = viewModel
         }
         viewModel.fetchHomeItems()
