@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.redbubble.redbubblehomework.data.model.Result
 import com.redbubble.redbubblehomework.databinding.MainFragmentBinding
 import com.redbubble.redbubblehomework.ui.main.base.BaseFragment
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {
-    private val viewModel: HomeFragmentViewModel by viewModels()
+    lateinit var viewModel: HomeFragmentViewModel
 
     @Inject
     lateinit var homeAdapter: HomeAdapter
@@ -22,6 +23,7 @@ class MainFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
         return MainFragmentBinding.inflate(
             inflater,
             container,
@@ -41,18 +43,12 @@ class MainFragment : BaseFragment() {
     }
 
     private fun subscribeUi() {
-        viewModel.homeResponse.observe(viewLifecycleOwner, { result ->
-            when (result) {
-                is Result.Failure -> {
-                    showSnackBar(result.message)
-                }
-                is Result.Loading -> {
-                    //No Operation
-                }
-                is Result.Success -> {
-                    result.data?.home?.let { homeAdapter.updateData(it) }
-                }
-            }
+        viewModel.homeItems.observe(viewLifecycleOwner, { items ->
+            items?.let { homeAdapter.updateData(it) }
+        })
+
+        viewModel.error.observe(viewLifecycleOwner, { error ->
+            error?.let { showSnackBar(error) }
         })
     }
 }
