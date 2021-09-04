@@ -1,0 +1,23 @@
+{
+  "home": [
+    {
+      "type": "WORK",
+      "id": "326210",
+      "title": "pigs love watermelon",
+      "artist": "Natalie Tyler",
+      "safeForWork": true,
+      "thumbnailUrl": "https://ih0.redbubble.net/image.680923039.6210/flat,500x,075,f.jpg"
+    },
+    {
+      "type": "PRODUCT",
+      "id": "39670936_beaut-razoo_6AQD3",
+      "price": {
+        "amount": 40,
+        "currency": "AUD"
+      },
+      "safeForWork": true,
+      "thumbnailUrl": "https://ih1.redbubble.net/image.850857794.0936/ctkr,x1862,front,black-c,324,409,600,600-bg,f8f8f8.u2.jpg",
+      "title": "Sleeveless Top"
+    }
+  ]
+}
