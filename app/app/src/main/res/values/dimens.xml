@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_padding">4dp</dimen>
+    <dimen name="default_spacing">8dp</dimen>
+
+    <dimen name="title_font_size">16sp</dimen>
+    <dimen name="sub_title_font_size">12sp</dimen>
+    <dimen name="default_font_size">14sp</dimen>
 </resources>
