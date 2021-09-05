@@ -7,17 +7,19 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.redbubble.redbubblehomework.R
+import com.redbubble.redbubblehomework.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.main_activity.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), MainActivityListener {
 
     private lateinit var navController: NavController
+    private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        binding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         navController = findNavController(R.id.nav_host_fragment)
         setupActionBarWithNavController(navController)
     }
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
 
     override fun showSnackBar(message: String?) {
         Snackbar.make(
-            mainLayout,
+            binding.mainLayout,
             message ?: getString(R.string.default_message),
             Snackbar.LENGTH_LONG
         ).show()
