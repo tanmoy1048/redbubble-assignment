@@ -33,11 +33,11 @@ class MainFragmentTest {
     fun init() {
         hiltRule.inject()
         fakeRepository = FakeRepository()
-        viewModel = HomeFragmentViewModel(fakeRepository)
     }
 
     @Test
     fun test_homeItems_get_data() {
+        viewModel = HomeFragmentViewModel(fakeRepository)
         launchFragmentInHiltContainer<MainFragment> {
             (this as MainFragment).viewModel = viewModel
         }

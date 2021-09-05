@@ -50,4 +50,5 @@ class DetailFragmentTest {
         )
         assertThat(viewModel.workDetail.getOrAwaitValue()?.artist).isEqualTo(fakeRepository.artist)
     }
+
 }
