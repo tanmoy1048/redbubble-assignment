@@ -2,6 +2,7 @@
     <string name="app_name">Redbubble Homework</string>
     <string name="default_message">Something is Wrong, Please try later</string>
     <string name="by_artist">by %1$s</string>
+    <string name="bullet_string">· %1$s</string>
     <string name="available_on">Available On</string>
     <string name="product_type_not_implemented">Only WORK Type Detail View is available.</string>
 </resources>

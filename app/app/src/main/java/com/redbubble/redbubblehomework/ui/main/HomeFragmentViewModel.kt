@@ -19,17 +19,11 @@ class HomeFragmentViewModel @Inject constructor(
     private val _homeResponse = MutableLiveData<Result<HomeResponse>>()
 
     val homeItems = Transformations.map(_homeResponse) { result ->
-        if (result is Result.Success) {
-            result.data?.home
-        } else
-            null
+        (result as? Result.Success)?.data?.home
     }
 
     val error = Transformations.map(_homeResponse) { result ->
-        if (result is Result.Failure) {
-            result.message
-        } else
-            null
+        (result as? Result.Failure)?.message
     }
 
     val isLoading = Transformations.map(_homeResponse) {

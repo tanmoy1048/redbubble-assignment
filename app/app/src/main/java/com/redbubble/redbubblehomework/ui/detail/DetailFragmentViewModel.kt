@@ -12,19 +12,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class DetailFragmentViewModel @Inject constructor(
-    private val mainRepository: MainDataSource
-) : ViewModel() {
-    private val _detailResponse = MutableLiveData<Result<ItemDetailResponse>>()
-    private val id = MutableLiveData<String>()
-
-    val workDetail = Transformations.map(_detailResponse) { result ->
-        if (result is Result.Success) {
-            result.data?.workDetails
-        } else
-            null
-    }
+abstract class DetailFragmentViewModel : ViewModel() {
+    protected val _detailResponse = MutableLiveData<Result<ItemDetailResponse>>()
 
     val error = Transformations.map(_detailResponse) { result ->
         if (result is Result.Failure) {
@@ -37,18 +26,5 @@ class DetailFragmentViewModel @Inject constructor(
         it is Result.Loading
     }
 
-    fun setId(id: String) {
-        this.id.value = id
-        fetchItemDetail()
-    }
-
-    fun fetchItemDetail() {
-        viewModelScope.launch {
-            id.value?.let {
-                mainRepository.getItemDetail(it).collect { result ->
-                    _detailResponse.value = result
-                }
-            }
-        }
-    }
+    abstract fun fetchItemDetail()
 }

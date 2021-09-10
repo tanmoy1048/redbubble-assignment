@@ -36,6 +36,15 @@ class MainRepository @Inject constructor(val networkServiceApi: NetworkServiceAp
         }.flowOn(Dispatchers.IO)
     }
 
+    override suspend fun getProductDetail(): Flow<Result<ItemDetailResponse>> {
+        return flow {
+            emit(Result.Loading())
+            val result = getResponse(
+                request = { networkServiceApi.getProductDetail() })
+            emit(result)
+        }.flowOn(Dispatchers.IO)
+    }
+
     private suspend fun <T> getResponse(request: suspend () -> Response<T>): Result<T> {
         return try {
             val result = request.invoke()

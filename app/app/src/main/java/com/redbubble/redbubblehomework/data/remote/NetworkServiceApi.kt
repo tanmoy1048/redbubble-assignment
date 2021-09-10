@@ -13,4 +13,7 @@ interface NetworkServiceApi {
 
     @GET("workDetails/{id}.json")
     suspend fun getItemDetail(@Path("id") id: String): Response<ItemDetailResponse>
+
+    @GET("productDetails.json")
+    suspend fun getProductDetail(): Response<ItemDetailResponse>
 }

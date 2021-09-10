@@ -44,7 +44,7 @@ class MainFragment : BaseFragment() {
                 view.findNavController()
                     .navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(it.id))
             } else {
-                showSnackBar(getString(R.string.product_type_not_implemented))
+                view.findNavController().navigate(MainFragmentDirections.actionMainFragmentToProductDetailFragment())
             }
         }
         subscribeUi()

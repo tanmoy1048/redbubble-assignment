@@ -7,7 +7,6 @@ import androidx.test.filters.LargeTest
 import com.google.common.truth.Truth.assertThat
 import com.redbubble.redbubblehomework.data.repository.FakeRepository
 import com.redbubble.redbubblehomework.launchFragmentInHiltContainer
-import com.redbubble.redbubblehomework.utils.getOrAwaitValue
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,7 +33,7 @@ class DetailFragmentTest {
     fun init() {
         hiltRule.inject()
         fakeRepository = FakeRepository()
-        viewModel = DetailFragmentViewModel(fakeRepository)
+        viewModel = DetailFragmentViewModel()
     }
 
     @Test

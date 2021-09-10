@@ -1,4 +1,4 @@
-package com.redbubble.redbubblehomework.ui.detail
+package com.redbubble.redbubblehomework.ui.detail.work
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.redbubble.redbubblehomework.databinding.DetailFragmentBinding
+import com.redbubble.redbubblehomework.ui.detail.DetailFragmentArgs
 import com.redbubble.redbubblehomework.ui.main.HomeAdapter
 import com.redbubble.redbubblehomework.ui.main.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment() {
-    lateinit var viewModel: DetailFragmentViewModel
+    lateinit var viewModel: ItemDetailFragmentViewModel
     val safeArgs: DetailFragmentArgs by navArgs()
 
     @Inject
@@ -28,7 +29,7 @@ class DetailFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this).get(DetailFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ItemDetailFragmentViewModel::class.java)
         return DetailFragmentBinding.inflate(
             inflater,
             container,

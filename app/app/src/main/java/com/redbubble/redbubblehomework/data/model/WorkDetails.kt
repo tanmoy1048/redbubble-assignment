@@ -7,5 +7,6 @@ data class WorkDetails(
     val imageUrl: String,
     val safeForWork: Boolean,
     val shareUrl: String,
-    val title: String
+    val title: String,
+    val featureSet: FeatureSet?
 )

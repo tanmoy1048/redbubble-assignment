@@ -9,4 +9,6 @@ interface MainDataSource {
     suspend fun getHomeItems(): Flow<Result<HomeResponse>>
 
     suspend fun getItemDetail(id: String): Flow<Result<ItemDetailResponse>>
+
+    suspend fun getProductDetail(): Flow<Result<ItemDetailResponse>>
 }
